@@ -20,8 +20,7 @@ This visualizer shows exactly how the DP table is built, how include/exclude dec
 ---
 
 ## Screenshots
-
-![Task Scheduler Visualizer UI](<img width="920" height="941" alt="Screenshot 2026-04-30 204813" src="https://github.com/user-attachments/assets/200cdb77-ee8d-4ff2-8ed4-bec1155e5ab9" />)
+![Task Scheduler Visualizer UI](assets/screenshot.png)
 
 ---
 
