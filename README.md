@@ -1,153 +1,201 @@
-# 📅 Task Scheduler using Dynamic Programming (C++)
+# Task Scheduler Visualizer using Dynamic Programming
+### (Weighted Interval Scheduling)
 
-## 📌 Project Overview
-
-This project implements a **Task Scheduler** using **Dynamic Programming (DP)** to solve the **Weighted Interval Scheduling Problem**.
-
-The program allows users to input tasks with start time, end time, and profit, and then computes the **optimal set of non-overlapping tasks** that yields the **maximum total profit**.
+A premium, interactive web application that visualizes how Dynamic Programming solves the **Weighted Interval Scheduling** problem step-by-step.
 
 ---
 
-## 🎯 Objectives
+## Overview
 
-* Demonstrate the use of **Dynamic Programming**
-* Solve a real-world optimization problem
-* Provide a simple **menu-driven interface**
-* Store and retrieve data using **file handling**
+Imagine you are managing freelance jobs. Each task has:
+- start time
+- end time
+- profit
 
----
+You can only work on one task at a time.  
+The goal is to select **non-overlapping tasks** such that total profit is maximized.
 
-## 🧠 Problem Description
-
-Given a set of tasks:
-
-* Each task has:
-
-  * Start time
-  * End time
-  * Profit
-
-The goal is to:
-
-> Select a subset of tasks such that no tasks overlap and the total profit is maximized.
+This visualizer shows exactly how the DP table is built, how include/exclude decisions are made, and which tasks are finally selected.
 
 ---
 
-## ⚙️ Features
+## Screenshots
 
-* ➕ Add new tasks
-* 📋 Display all tasks
-* 🧮 Compute optimal schedule using DP
-* 📊 Show selected tasks
-* 💾 Save tasks to file
-* 📂 Load tasks from file
-* 🗑️ Clear all tasks
+![Task Scheduler Visualizer UI](C:\Users\sudas\.cursor\projects\c-Users-sudas-OneDrive-Projects-task-scheduler-coding-skills\assets\c__Users_sudas_AppData_Roaming_Cursor_User_workspaceStorage_387f9dafaf8d51afe6c7e823c60bfa90_images_image-0eec0783-6dcd-45df-af4c-45bfe9775485.png)
 
 ---
 
-## 🏗️ Technologies Used
+## Problem Definition
 
-* Language: **C++**
-* Concepts:
+### Input
+A list of tasks:
 
-  * Dynamic Programming
-  * Arrays
-  * File Handling
-  * Sorting Algorithms
-
----
-
-## 🧮 Algorithm Used
-
-### Weighted Interval Scheduling (DP)
-
-For each task `i`:
-
+```json
+{
+  "tasks": [
+    { "id": 1, "start": 1, "end": 3, "profit": 50 },
+    { "id": 2, "start": 2, "end": 5, "profit": 20 },
+    { "id": 3, "start": 4, "end": 6, "profit": 70 }
+  ]
+}
 ```
-DP[i] = max(
-    profit[i] + DP[last_non_conflicting_task],
-    DP[i-1]
+
+### Output
+- Maximum profit
+- Selected non-overlapping tasks
+- Full DP states for visualization
+
+### Constraints
+- `1 <= n <= 1000` tasks
+- `0 <= start < end <= 10^6`
+- `0 <= profit <= 10^6`
+
+### Example
+Tasks: `(1,3,50), (2,5,20), (4,6,70), (6,7,60)`  
+Optimal selection: `(1,3,50), (4,6,70), (6,7,60)`  
+Maximum profit: `180`
+
+---
+
+## Why Dynamic Programming (Not Greedy)?
+
+Greedy choices like:
+- earliest ending task first
+- highest profit task first
+- shortest task first
+
+can fail because a locally optimal task may block a better global combination.
+
+Weighted Interval Scheduling works with DP because it has:
+- **Optimal substructure**
+- **Overlapping subproblems**
+
+Recurrence:
+
+```text
+dp[i] = max(
+  profit[i] + dp[p(i)],   // include current task
+  dp[i - 1]               // exclude current task
 )
 ```
 
-Steps:
-
-1. Sort tasks based on end time
-2. For each task:
-
-   * Include it (add profit + previous compatible task)
-   * Exclude it
-3. Take maximum of both choices
+Where `p(i)` is the index of the last non-overlapping task before task `i`.
 
 ---
 
-## 📂 File Structure
+## Algorithm Core (Python)
 
+File: `python_core/weighted_interval.py`
+
+Includes:
+- Brute force solution (`O(2^n)`)
+- Optimized DP + binary search (`O(n log n)`)
+- DP table construction
+- Decision tracking (`include` vs `exclude`)
+- Backtracking selected tasks
+- `dp_states` snapshots for frontend animation
+
+### Complexity
+- **Brute force:** Time `O(2^n)`, Space `O(n)`
+- **DP optimized:** Time `O(n log n)`, Space `O(n)`
+
+---
+
+## Tech Stack
+
+- **Frontend:** HTML, CSS, Vanilla JavaScript
+- **Backend API Gateway:** Node.js, Express
+- **Algorithm Core Service:** Python (child process integration)
+
+---
+
+## Key Features
+
+- Step-by-step DP table animation
+- Include vs exclude decision visualization
+- Timeline bars for all tasks
+- Selected tasks highlighted distinctly
+- Dynamic task input (add/remove rows)
+- Sample dataset loader for quick demo
+
+---
+
+## API Contract
+
+### `POST /solve`
+
+Request body:
+
+```json
+{
+  "tasks": [
+    { "id": 1, "start": 1, "end": 3, "profit": 50 }
+  ]
+}
 ```
-tasks.txt   → Stores task data
-main.cpp    → Source code
-README.md   → Project documentation
+
+
+
+## Visualization Details
+
+### DP Table Animation
+- Fills `dp[0..n]` progressively
+- Highlights active cell each step
+- Displays current include/exclude comparison
+
+### Timeline Visualization
+- Draws each task as a bar from `start` to `end`
+- Colors selected tasks in green
+- Keeps unselected tasks neutral for contrast
+
+---
+
+## Project Structure
+
+```text
+task_scheduler_coding_skills/
+├── client/
+│   ├── index.html
+│   ├── styles.css
+│   └── script.js
+│
+├── server/
+│   ├── package.json
+│   └── src/
+│       ├── server.js
+│       ├── routes/
+│       │   └── solveRoutes.js
+│       └── controllers/
+│           └── solveController.js
+│
+├── python_core/
+│   └── weighted_interval.py
+│
+└── README.md
 ```
 
 ---
 
-## 📄 Input Format
+## How to Run Locally
 
-Each task includes:
-
-```
-Start Time
-End Time
-Profit
-```
-
-Example:
-
-```
-1 3 50
-2 5 20
-4 6 70
+### 1) Install and start backend
+```bash
+cd server
+npm install
+npm start
 ```
 
----
+Backend runs on: `http://localhost:3000`
 
-## 📊 Sample Output
+### 2) Open frontend
+Open:
 
-```
-Tasks:
-1) Start: 1 End: 3 Profit: 50
-2) Start: 2 End: 5 Profit: 20
-3) Start: 4 End: 6 Profit: 70
-
-Optimal profit: 120
-
-Selected Tasks:
-Task 3 (Start: 4, End: 6, Profit: 70)
-Task 1 (Start: 1, End: 3, Profit: 50)
+```text
+client/index.html
 ```
 
----
+Or directly visit:
 
-## 🚀 How to Run
-
-1. Compile the program:
-
+```text
+http://localhost:3000
 ```
-g++ main.cpp -o main
-```
-
-2. Run the program:
-
-```
-./main
-```
-
-3. Use the menu options to interact.
-
----
-
-## 👨‍💻 Conclusion
-
-This project demonstrates how **Dynamic Programming** can be applied to solve real-world optimization problems efficiently.
-
----

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Scheduler Visualizer (DP)</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Task Scheduler Visualizer</h1>
+        <p>
+          Weighted Interval Scheduling using Dynamic Programming (maximize total
+          profit from non-overlapping tasks).
+        </p>
+      </header>
+
+      <section class="card">
+        <h2>Input Tasks</h2>
+        <div id="taskTableContainer">
+          <table id="taskTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Profit</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="taskTableBody"></tbody>
+          </table>
+        </div>
+        <div class="controls">
+          <button id="addTaskBtn">Add Task</button>
+          <button id="solveBtn" class="primary">Solve</button>
+          <button id="loadExampleBtn">Load Example</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Result</h2>
+        <div id="resultBox" class="result-grid">
+          <div>
+            <h3>Maximum Profit</h3>
+            <p id="maxProfit">-</p>
+          </div>
+          <div>
+            <h3>Selected Tasks</h3>
+            <ul id="selectedTasks"></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Timeline Visualization</h2>
+        <div id="timeline" class="timeline"></div>
+      </section>
+
+      <section class="card">
+        <h2>DP Table Visualization</h2>
+        <div id="decisionText" class="decision-text">
+          Click Solve to animate DP table filling.
+        </div>
+        <div id="dpTable" class="dp-table"></div>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
