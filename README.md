@@ -1,4 +1,3 @@
-<img width="920" height="941" alt="Screenshot 2026-04-30 204813" src="https://github.com/user-attachments/assets/200cdb77-ee8d-4ff2-8ed4-bec1155e5ab9" />
 # Task Scheduler Visualizer using Dynamic Programming
 ### (Weighted Interval Scheduling)
 
@@ -22,7 +21,7 @@ This visualizer shows exactly how the DP table is built, how include/exclude dec
 
 ## Screenshots
 
-![Task Scheduler Visualizer UI](C:\Users\sudas\.cursor\projects\c-Users-sudas-OneDrive-Projects-task-scheduler-coding-skills\assets\c__Users_sudas_AppData_Roaming_Cursor_User_workspaceStorage_387f9dafaf8d51afe6c7e823c60bfa90_images_image-0eec0783-6dcd-45df-af4c-45bfe9775485.png)
+![Task Scheduler Visualizer UI](<img width="920" height="941" alt="Screenshot 2026-04-30 204813" src="https://github.com/user-attachments/assets/200cdb77-ee8d-4ff2-8ed4-bec1155e5ab9" />)
 
 ---
 
